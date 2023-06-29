@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LifeDesignerOnAvalonia.Views.Add_category"
+		xmlns:vm="clr-namespace:LifeDesignerOnAvalonia.ViewModels"
+		x:DataType="vm:Add_categoryViewModel"
+        Title="Add_category" Height="277" Width="372">
+
+	<Window.DataContext>
+		<vm:Add_categoryViewModel/>
+	</Window.DataContext>
+
+	<Grid>
+		<TextBox x:Name="TextBox" Text="{Binding Text}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="188"/>
+		<Button x:Name="Button_add" Command="{Binding AddCategoryCommand}" Content="Добавить" HorizontalAlignment="Left" Margin="92,195,0,0" VerticalAlignment="Top"/>
+		<Button x:Name="Button_cancle" Content="Отмена" Command="{Binding CloseWindowCommand}" IsDefault="True" HorizontalAlignment="Left" Margin="234,195,0,0" VerticalAlignment="Top"/>
+		<TextBlock x:Name="Text" Text="{Binding ErrText}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Margin="0,81,0,0" Foreground="#FFFF0F0F"/>
+	</Grid>
+	
+</Window>

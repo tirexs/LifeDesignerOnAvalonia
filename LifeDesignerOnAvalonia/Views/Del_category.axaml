@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LifeDesignerOnAvalonia.Views.Del_category"
+		xmlns:vm="clr-namespace:LifeDesignerOnAvalonia.ViewModels"
+		x:DataType="vm:Del_categoryViewModel"
+        Title="Del_category" Height="198" Width="282">
+
+    <Window.DataContext>
+        <vm:Del_categoryViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Button Command="{Binding RemoveCategoryCommand}" Content="удалить" HorizontalAlignment="Left" Margin="54,136,0,0" VerticalAlignment="Top"/>
+        <Button Command="{Binding CloseWindowCommand}" Content="отмена" HorizontalAlignment="Left" Margin="180,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.755,-0.173"/>
+        <TextBox Text="{Binding Text}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBlock x:Name="Text" Text="{Binding ErrText}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Margin="0,56,0,0" Foreground="#FFFF0F0F"/>
+
+    </Grid>
+</Window>

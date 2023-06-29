@@ -1,0 +1,35 @@
+<rxui:ReactiveWindow 
+		xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:rxui="http://reactiveui.net"
+	    x:TypeArguments="vm:AccountViewModel"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LifeDesignerOnAvalonia.Views.Account"
+		xmlns:vm="clr-namespace:LifeDesignerOnAvalonia.ViewModels"
+        xmlns:local="clr-namespace:LifeDesignerOnAvalonia.Views"
+		x:DataType="vm:AccountViewModel"
+        Title="Account" Height="450" Width="800">
+
+	<Window.DataContext>
+		<vm:AccountViewModel/>
+	</Window.DataContext>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<rxui:RoutedViewHost
+            Grid.Row="0"
+            Router ="{Binding Router}"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch" />
+		<!--<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="15">
+			<Button x:Name="GoNextButton" Content="Go to first" Command ="{Binding GoNextButton}"/>
+			<Button x:Name="GoBackButton" Content="Go back" Command ="{Binding GoBackButton}" Margin="5 0 0 0" />
+		</StackPanel>-->
+	</Grid>
+	
+</rxui:ReactiveWindow>

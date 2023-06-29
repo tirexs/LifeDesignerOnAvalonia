@@ -1,0 +1,32 @@
+<rxui:ReactiveUserControl
+			 xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:rxui="http://reactiveui.net"
+			 x:TypeArguments="ViewModel:RegisterViewModel"
+			 xmlns:local="clr-namespace:LifeDesignerOnAvalonia.Views" 
+             xmlns:ViewModel="clr-namespace:LifeDesignerOnAvalonia.ViewModels"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             x:Class="LifeDesignerOnAvalonia.Views.Register"
+			 x:DataType="ViewModel:RegisterViewModel">
+
+
+	<Grid Background="White">
+
+		<TextBox HorizontalAlignment="Left" Text="{Binding EmailText, Mode=TwoWay}" Margin="230,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+		<TextBox HorizontalAlignment="Left" Text="{Binding LoginText, Mode=TwoWay}" Margin="230,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+		<TextBox HorizontalAlignment="Left" Text="{Binding PassText, Mode=TwoWay}" Margin="230,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+		<TextBlock HorizontalAlignment="Left" Margin="130,123,0,0" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="102,60,0,0" TextWrapping="Wrap" Text="{Binding ErrText}" VerticalAlignment="Top" Foreground="Red"/>
+		<TextBlock HorizontalAlignment="Left" Margin="130,150,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="130,85,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="392,88,0,0" TextWrapping="Wrap" Text="{Binding ErrNulllText}" VerticalAlignment="Top" Foreground="#FFFF0202"/>
+		<TextBlock HorizontalAlignment="Left" Margin="392,120,0,0" TextWrapping="Wrap" Text="{Binding ErrNullText}" VerticalAlignment="Top" Foreground="#FFFF0202"/>
+		<TextBlock HorizontalAlignment="Left" Margin="392,163,0,0" TextWrapping="Wrap" Text="{Binding ErrNulText}" VerticalAlignment="Top" Foreground="#FFFF0202"/>
+		<Button Content="Регистрация" Command="{Binding RegisterCommand}" HorizontalAlignment="Left" Margin="266,217,0,0" VerticalAlignment="Top" Height="32" Width="85"/>
+		<Button Content="Отмена" Command="{Binding NavigateToLoginCommand}" HorizontalAlignment="Left" Margin="129,217,0,0" VerticalAlignment="Top" Height="32" Width="85"/>
+	</Grid>
+	
+	
+</rxui:ReactiveUserControl>

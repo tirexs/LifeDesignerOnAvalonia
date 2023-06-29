@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LifeDesignerOnAvalonia.Views.Add_task"
+		xmlns:vm="clr-namespace:LifeDesignerOnAvalonia.ViewModels"
+		x:DataType="vm:Add_taskViewModel"
+        Title="Add_task" Height="295" Width="392">
+
+	<Window.DataContext>
+		<vm:Add_taskViewModel/>
+	</Window.DataContext>
+
+	<Grid>
+		<TextBox x:Name="TextBox" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Margin="100,100,0,0"/>
+		<Button x:Name="Button_add" Command="{Binding AddTaskCommand}" Content="Добавить" HorizontalAlignment="Left" Margin="100,179,0,0" VerticalAlignment="Top"/>
+		<Button x:Name="Button_cancle" Content="Отмена" Command="{Binding CloseWindowCommand}" IsDefault="True" HorizontalAlignment="Left" Margin="242,179,0,0" VerticalAlignment="Top"/>
+		<TextBlock x:Name="Text" Text="{Binding ErrText}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Margin="0,70,0,0" Foreground="#FFFF0F0F"/>
+
+	</Grid>
+</Window>
