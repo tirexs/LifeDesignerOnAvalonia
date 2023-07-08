@@ -1,13 +1,8 @@
-﻿using LifeDesignerOnAvalonia.Commands;
-using LifeDesignerOnAvalonia.Models;
-using LifeDesignerOnAvalonia.ViewModels;
-using LifeDesignerOnAvalonia.Views;
+﻿using LifeDesignerOnAvalonia.Models;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using System.Linq;
 using System.Reactive;
-using System.Windows;
-using System.Windows.Input;
 
 namespace LifeDesignerOnAvalonia.ViewModels
 {

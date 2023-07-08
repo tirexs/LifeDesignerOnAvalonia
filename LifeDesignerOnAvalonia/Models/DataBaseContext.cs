@@ -12,7 +12,7 @@ namespace LifeDesignerOnAvalonia.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=26.170.202.34;Port=5432;Database=life_designer;Username=postgres;Password=22848");
+            optionsBuilder.UseNpgsql("Host=127.0.0.1;Port=5432;Database=life_designer;Username=postgres;Password=22848");
         }
 
 

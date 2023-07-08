@@ -40,7 +40,7 @@
 					<TabControl.ItemTemplate>
 						<!-- this is the header template-->
 						<DataTemplate x:DataType="vx:Item">
-							<TextBlock Text="{Binding Header}}">
+							<TextBlock Text="{Binding Header}">
 								<!--<TextBlock.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Удалить" Command="{Binding MenuItem_DelCat}"/>
