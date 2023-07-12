@@ -1,9 +1,7 @@
 ﻿using LifeDesignerOnAvalonia.Models;
 using ReactiveUI;
-using Splat;
 using System.Linq;
 using System.Reactive;
-using System.Windows.Input;
 
 namespace LifeDesignerOnAvalonia.ViewModels
 {
@@ -24,33 +22,21 @@ namespace LifeDesignerOnAvalonia.ViewModels
         public string EmailText
         {
             get { return emailText; }
-            set
-            {
-                emailText = value;
-                OnPropertyChanged("EmailText");
-            }
+            set { this.RaiseAndSetIfChanged(ref emailText, value); }
         }
 
         private string loginText;
         public string LoginText
         {
             get { return loginText; }
-            set
-            {
-                loginText = value;
-                OnPropertyChanged("LoginText");
-            }
+            set { this.RaiseAndSetIfChanged(ref loginText, value); }
         }
 
         private string idText;
         public string IdText
         {
             get { return idText; }
-            set
-            {
-                idText = value;
-                OnPropertyChanged("IdText");
-            }
+            set { this.RaiseAndSetIfChanged(ref idText, value); }
         }
 
         

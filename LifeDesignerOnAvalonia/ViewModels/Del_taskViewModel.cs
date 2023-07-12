@@ -20,22 +20,14 @@ namespace LifeDesignerOnAvalonia.ViewModels
         public string Text
         {
             get { return text; }
-            set
-            {
-                text = value;
-                OnPropertyChanged("Text");
-            }
+            set { this.RaiseAndSetIfChanged(ref text, value); }
         }
 
         private string errText;
         public string ErrText
         {
             get { return errText; }
-            set
-            {
-                errText = value;
-                OnPropertyChanged("ErrText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
         public ReactiveCommand<Unit, Unit> DelTaskCommand { get; }

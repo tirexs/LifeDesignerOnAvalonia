@@ -1,5 +1,4 @@
 ﻿using LifeDesignerOnAvalonia.Models;
-using LifeDesignerOnAvalonia.ViewModels;
 using LifeDesignerOnAvalonia.Views;
 using ReactiveUI;
 using Splat;

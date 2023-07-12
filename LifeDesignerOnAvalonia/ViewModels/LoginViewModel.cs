@@ -2,8 +2,6 @@
 using LifeDesignerOnAvalonia.Infrastructure;
 using LifeDesignerOnAvalonia.Models;
 using ReactiveUI;
-using Splat;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reactive;
 using System.Windows.Input;
@@ -28,56 +26,35 @@ namespace LifeDesignerOnAvalonia.ViewModels
         public string EmailText
         {
             get { return emailText; }
-            set
-            {
-                emailText = value;
-                //OnPropertyChanged("EmailText");
-                this.RaiseAndSetIfChanged(ref emailText, value);
-            }
+            set { this.RaiseAndSetIfChanged(ref emailText, value); }
         }
 
         private string passText;
         public string PassText
         {
             get { return passText; }
-            set
-            {
-                passText = value;
-                OnPropertyChanged("PassText");
-            }
+            set { this.RaiseAndSetIfChanged(ref passText, value); }
         }
 
         private string errText;
         public string ErrText
         {
             get { return errText; }
-            set
-            {
-                errText = value;
-                OnPropertyChanged("ErrText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
         private string errNullText;
         public string ErrNullText
         {
             get { return errNullText; }
-            set
-            {
-                errNullText = value;
-                OnPropertyChanged("ErrNullText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errNullText, value); }
         }
 
         private string errNulText;
         public string ErrNulText
         {
             get { return errNulText; }
-            set
-            {
-                errNulText = value;
-                OnPropertyChanged("ErrNulText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errNulText, value); }
         }
 
         public ReactiveCommand<Unit, Unit> NavigateToRegisterCommand { get; }

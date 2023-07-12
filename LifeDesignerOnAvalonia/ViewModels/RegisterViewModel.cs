@@ -1,10 +1,8 @@
 ﻿using LifeDesignerOnAvalonia.Infrastructure;
 using LifeDesignerOnAvalonia.Models;
 using ReactiveUI;
-using Splat;
 using System.Linq;
 using System.Reactive;
-using System.Windows.Input;
 
 namespace LifeDesignerOnAvalonia.ViewModels
 {
@@ -27,77 +25,49 @@ namespace LifeDesignerOnAvalonia.ViewModels
         public string ErrText
         {
             get { return errText; }
-            set
-            {
-                errText = value;
-                OnPropertyChanged("ErrText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
         private string emailText;
         public string EmailText
         {
             get { return emailText; }
-            set
-            {
-                emailText = value;
-                OnPropertyChanged("EmailText");
-            }
+            set { this.RaiseAndSetIfChanged(ref emailText, value); }
         }
 
         private string loginText;
         public string LoginText
         {
             get { return loginText; }
-            set
-            {
-                loginText = value;
-                OnPropertyChanged("LoginText");
-            }
+            set { this.RaiseAndSetIfChanged(ref loginText, value); }
         }
 
         private string passText;
         public string PassText
         {
             get { return passText; }
-            set
-            {
-                passText = value;
-                OnPropertyChanged("PassText");
-            }
+            set { this.RaiseAndSetIfChanged(ref passText, value); }
         }
 
         private string errNulllText;
         public string ErrNulllText
         {
             get { return errNulllText; }
-            set
-            {
-                errNulllText = value;
-                OnPropertyChanged("ErrNulllText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errNulllText, value); }
         }
 
         private string errNullText;
         public string ErrNullText
         {
             get { return errNullText; }
-            set
-            {
-                errNullText = value;
-                OnPropertyChanged("ErrNullText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errNullText, value); }
         }
 
         private string errNulText;
         public string ErrNulText
         {
             get { return errNulText; }
-            set
-            {
-                errNulText = value;
-                OnPropertyChanged("ErrNulText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errNulText, value); }
         }
 
         

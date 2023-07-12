@@ -26,19 +26,12 @@ namespace LifeDesignerOnAvalonia.ViewModels
             get { return selectedItems; }
             set
             {
-                selectedItems = value;
-                TabControl_SelectionChanged();
-                OnPropertyChanged("SelectedItems");
+                ItemsCollection.SelectedItem = SelectedItems;
+                this.RaiseAndSetIfChanged(ref selectedItems, value);
             }
         }
 
-        void TabControl_SelectionChanged()
-        {
-            ItemsCollection.SelectedItem = SelectedItems;
-        }
-
-
-
+        
         public ReactiveCommand<Unit, Unit> AccountCommand { get; }
 
         private void Account()

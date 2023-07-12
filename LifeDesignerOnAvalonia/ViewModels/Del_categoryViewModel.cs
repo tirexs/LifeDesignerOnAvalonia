@@ -1,13 +1,8 @@
-﻿using LifeDesignerOnAvalonia.Commands;
-using LifeDesignerOnAvalonia.Models;
-using LifeDesignerOnAvalonia.ViewModels;
-using LifeDesignerOnAvalonia.Views;
+﻿using LifeDesignerOnAvalonia.Models;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using System.Linq;
 using System.Reactive;
-using System.Windows;
-using System.Windows.Input;
 
 namespace LifeDesignerOnAvalonia.ViewModels
 {
@@ -24,22 +19,14 @@ namespace LifeDesignerOnAvalonia.ViewModels
         public string Text
         {
             get { return text; }
-            set
-            {
-                text = value;
-                OnPropertyChanged("Text");
-            }
+            set { this.RaiseAndSetIfChanged(ref text, value); }
         }
 
         private string errText;
         public string ErrText
         {
             get { return errText; }
-            set
-            {
-                errText = value;
-                OnPropertyChanged("ErrText");
-            }
+            set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
         public ReactiveCommand<Unit, Unit> RemoveCategoryCommand { get; }
