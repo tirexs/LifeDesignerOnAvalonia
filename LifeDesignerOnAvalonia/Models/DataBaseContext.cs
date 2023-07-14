@@ -20,7 +20,7 @@ namespace LifeDesignerOnAvalonia.Models
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Data> datas { get; set; }
         public DbSet<UserLogin> userLogins { get; set; }
-
+        public DbSet<AudioData> audioData { get; set; }
         
 
     }
