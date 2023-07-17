@@ -27,6 +27,7 @@
 					<Button x:Name="del_category" Content="удаление категории" Command="{Binding RemoveCategoryCommand}" Width="142"/>
 					<Button x:Name="add_element" Content="добавление элемента" Command="{Binding AddTaskCommand}" Width="142"/>
 					<Button x:Name="del_element" Content="удаление элемента" Command="{Binding DelTaskCommand}" Width="142"/>
+					<Button x:Name="add_audio" Content="добавление аудио" Command="{Binding AddAudioCommand}" Width="142"/>
 				</StackPanel>
 			</Grid>
 		</Border>

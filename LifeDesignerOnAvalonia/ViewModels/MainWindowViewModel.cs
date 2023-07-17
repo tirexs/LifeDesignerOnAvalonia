@@ -16,7 +16,7 @@ namespace LifeDesignerOnAvalonia.ViewModels
             AddTaskCommand = ReactiveCommand.Create(AddTask);
             DelTaskCommand = ReactiveCommand.Create(DelTask);
             AccountCommand = ReactiveCommand.Create(Account);
-            
+            AddAudioCommand = ReactiveCommand.Create(AddAudio);
         }
 
         
@@ -73,6 +73,14 @@ namespace LifeDesignerOnAvalonia.ViewModels
             ItemsCollection.SelectedItem = SelectedItems;
             Del_task DT = new Del_task();
             DT.Show();
+        }
+
+        public ReactiveCommand<Unit, Unit> AddAudioCommand { get; }
+
+        private void AddAudio()
+        {
+            Add_audio AA = new Add_audio();
+            AA.Show();
         }
 
 
