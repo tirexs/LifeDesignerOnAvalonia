@@ -22,7 +22,8 @@ namespace LifeDesignerOnAvalonia.Commands
                 {
                     var id = context.Categorys.Where(n => n.Name == Cname).Select(n => n.Id);
                     var contents = context.datas.Include(t => t.Category).Where(t => t.IdCategory == id.First()).Select(x => x.Text).ToList();
-                    ItemsCollection.Items.Add(new Item { Header = Cname, Content = new ObservableCollection<string>(contents) });
+                    var AudioName = context.audioData.Include(t => t.Category).Where(t => t.IdCategory == id.First()).Select(x => x.Name).ToList();
+                    ItemsCollection.Items.Add(new Item { Header = Cname, Content = new ObservableCollection<string>(contents), AudioName = new ObservableCollection<string>(AudioName) });
                 }
             }
         }

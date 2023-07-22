@@ -17,6 +17,7 @@ namespace LifeDesignerOnAvalonia.ViewModels
             DelTaskCommand = ReactiveCommand.Create(DelTask);
             AccountCommand = ReactiveCommand.Create(Account);
             AddAudioCommand = ReactiveCommand.Create(AddAudio);
+            PlayAudioCommand = ReactiveCommand.Create(PlayAudio);
         }
 
         
@@ -26,12 +27,21 @@ namespace LifeDesignerOnAvalonia.ViewModels
             get { return selectedItems; }
             set
             {
-                ItemsCollection.SelectedItem = SelectedItems;
                 this.RaiseAndSetIfChanged(ref selectedItems, value);
             }
         }
 
         
+        private int selectedIndexAudioItem;
+        public int SelectedIndexAudioItem
+        {
+            get { return selectedIndexAudioItem; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedIndexAudioItem, value);
+            }
+        }
+
         public ReactiveCommand<Unit, Unit> AccountCommand { get; }
 
         private void Account()
@@ -79,8 +89,16 @@ namespace LifeDesignerOnAvalonia.ViewModels
 
         private void AddAudio()
         {
+            ItemsCollection.SelectedItem = SelectedItems;
             Add_audio AA = new Add_audio();
             AA.Show();
+        }
+
+        public ReactiveCommand<Unit, Unit> PlayAudioCommand { get; }
+
+        private void PlayAudio()
+        {
+            SelectedIndexAudioItem = ItemsCollection.SelectedIndexAudioItem;
         }
 
 

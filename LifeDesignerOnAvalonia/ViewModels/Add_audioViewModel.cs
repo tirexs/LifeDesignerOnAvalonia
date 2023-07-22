@@ -1,15 +1,9 @@
 ﻿using LifeDesignerOnAvalonia.Models;
 using ReactiveUI;
-using System.Collections.ObjectModel;
 using System.Reactive;
 using NAudio.Wave;
-using NAudio.FileFormats;
-using NAudio.CoreAudioApi;
-using NAudio;
 using System.IO;
 using System.Media;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Net.Mime.MediaTypeNames;
 using System.Linq;
 using System;
 
@@ -65,7 +59,7 @@ namespace LifeDesignerOnAvalonia.ViewModels
             waveIn.Dispose();
             byte[] audioBytes = outputStream.ToArray();
             outputStream.Dispose();
-
+            var NameRecord = DateTime.Now.ToString("yyyy-MM-dd");
 
             if (audioBytes == null)
             {
@@ -78,7 +72,7 @@ namespace LifeDesignerOnAvalonia.ViewModels
                     var id = context.Categorys.Where(n => n.Name == ItemsCollection.SelectedItem.Header).Select(n => n.Id).FirstOrDefault();
                     var audioData = new AudioData()
                     {
-                        Name = DateTime.Now.ToString("yyyy-MM-dd"),
+                        Name = NameRecord,
                         IdCategory = id,
                         IdUser = ItemsCollection.IdUser,
                         Audio = audioBytes
@@ -86,7 +80,12 @@ namespace LifeDesignerOnAvalonia.ViewModels
 
                     context.audioData.Add(audioData);
                     context.SaveChanges();
-                    
+
+                    var item = ItemsCollection.Items.FirstOrDefault(i => i.Header == ItemsCollection.SelectedItem.Header);
+                    if (item != null)
+                    {
+                        item.AudioName.Add(NameRecord);
+                    }
                 }
             }
         }

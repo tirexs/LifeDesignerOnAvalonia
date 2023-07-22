@@ -52,70 +52,22 @@
 					</TabControl.ItemTemplate>
 
 					<TabControl.ContentTemplate>
-						<!-- this is the body of the TabItem template-->
 						<DataTemplate x:DataType="vx:Item">
-							<ListBox ItemsSource="{Binding Content}">
-								
-							</ListBox>
+							<TabControl>
+								<TabItem Header="Текстовые заметки">
+									<ListBox ItemsSource="{Binding Content}"/>
+									<!-- Ваше содержимое для второго TabControl для поля Content -->
+								</TabItem>
+								<TabItem Header="Голосовые заметки">
+									<StackPanel Orientation="Horizontal">
+										<Button Content="Play" Command="{Binding PlayAudioCommand}"/>
+										<ListBox ItemsSource="{Binding AudioName}" SelectedIndex="{Binding Source={x:Static vx:ItemsCollection.SelectedIndexAudioItem}, Mode=TwoWay}"/>
+									</StackPanel>
+									<!-- Ваше содержимое для второго TabControl для поля AudioName -->
+								</TabItem>
+							</TabControl>
 						</DataTemplate>
 					</TabControl.ContentTemplate>
-
-
-
-
-
-					<!--<TabControl.Resources>
-						<SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
-						<Style TargetType="{x:Type TabControl}">
-							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-							<Setter Property="Padding" Value="4,4,4,4"/>
-							<Setter Property="BorderThickness" Value="1"/>
-							<Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
-							<Setter Property="Background" Value="#F9F9F9"/>
-							<Setter Property="HorizontalContentAlignment" Value="Center"/>
-							<Setter Property="VerticalContentAlignment" Value="Center"/>
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate TargetType="TabControl">
-										<DockPanel>
-											<ScrollViewer DockPanel.Dock="Left"
-                            HorizontalScrollBarVisibility="Disabled"
-                            VerticalScrollBarVisibility="Auto">
-												<StackPanel IsItemsHost="True" Orientation="Vertical"/>
-											</ScrollViewer>
-											<Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="0" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-												<ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-											</Border>
-										</DockPanel>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-						</Style>
-						<Style TargetType="TabItem">
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate TargetType="TabItem">
-										<Border Name="Border" BorderThickness="1,1,0,1" BorderBrush="#8C8E94" CornerRadius="4,0,0,4" Margin="0,0">
-											<ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-										</Border>
-										<ControlTemplate.Triggers>
-											<Trigger Property="IsSelected" Value="True">
-												<Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
-											</Trigger>
-											<Trigger Property="IsSelected" Value="False">
-												<Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-											</Trigger>
-										</ControlTemplate.Triggers>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-						</Style>
-					</TabControl.Resources>-->
-
 
 
 
