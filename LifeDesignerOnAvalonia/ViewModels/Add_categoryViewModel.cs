@@ -1,6 +1,5 @@
-﻿using LifeDesignerOnAvalonia.Models;
+﻿using LifeDesignerOnAvalonia.Services;
 using ReactiveUI;
-using System.Collections.ObjectModel;
 using System.Reactive;
 
 namespace LifeDesignerOnAvalonia.ViewModels
@@ -8,26 +7,34 @@ namespace LifeDesignerOnAvalonia.ViewModels
     public class Add_categoryViewModel : ViewModelBase
     {
 
-        public Add_categoryViewModel()
+        #region private
+        private ItemsCollectionService _service;
+        private string text;
+        private string errText;
+        #endregion
+
+        public Add_categoryViewModel(ItemsCollectionService service)
         {
+            _service = service;
             AddCategoryCommand = ReactiveCommand.Create(AddCategory);
             CloseWindowCommand = ReactiveCommand.Create(CloseWindow);
         }
-        private string text;
+
+        public ReactiveCommand<Unit, Unit> AddCategoryCommand { get; }
+        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; }
+
         public string Text
         {
             get { return text; }
             set { this.RaiseAndSetIfChanged(ref text, value); }
         }
 
-        private string errText;
         public string ErrText
         {
             get { return errText; }
             set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
-        public ReactiveCommand<Unit, Unit> AddCategoryCommand { get; }
 
         private void AddCategory()
         {
@@ -37,23 +44,9 @@ namespace LifeDesignerOnAvalonia.ViewModels
             }
             else
             {
-                using (var context = new DataBaseContext())
-                {
-
-                    var category = new Category()
-                    {
-                        Name = Text,
-                        IdUser = ItemsCollection.IdUser
-                    };
-
-                    context.Categorys.Add(category);
-                    context.SaveChanges();
-                    ItemsCollection.Items.Add(new Item { Header = Text, Content = new ObservableCollection<string>() });
-                    CloseWindowCommand.Execute();
-                }
+                _service.AddCategory(Text);
             }        
         }
-        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; }
         
         private void CloseWindow()
         {            

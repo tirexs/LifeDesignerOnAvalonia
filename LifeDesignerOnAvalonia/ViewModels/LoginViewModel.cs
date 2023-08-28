@@ -1,6 +1,7 @@
 ﻿using LifeDesignerOnAvalonia.Commands;
 using LifeDesignerOnAvalonia.Infrastructure;
 using LifeDesignerOnAvalonia.Models;
+using LifeDesignerOnAvalonia.Services;
 using ReactiveUI;
 using System.Linq;
 using System.Reactive;
@@ -11,46 +12,50 @@ namespace LifeDesignerOnAvalonia.ViewModels
     public class LoginViewModel : ViewModelBase, IRoutableViewModel
     {
 
-        public LoginViewModel(IScreen screen) 
+        #region private
+        private ItemsCollectionService _service;
+        private string passText;
+        private string emailText;
+        private string errText;
+        private string errNullText;
+        private string errNulText;
+        #endregion
+
+        public LoginViewModel(IScreen screen, ItemsCollectionService service) 
         {
+            _service = service;
             HostScreen = screen;
             LoginCommand = ReactiveCommand.Create(Login);
-            CICommand = new СollectionInitializationCommand();
             NavigateToRegisterCommand = ReactiveCommand.Create(NavigateToRegister);
         }
 
         public string UrlPathSegment => "Login";
         public IScreen HostScreen { get; }
 
-        private string emailText;
         public string EmailText
         {
             get { return emailText; }
             set { this.RaiseAndSetIfChanged(ref emailText, value); }
         }
 
-        private string passText;
         public string PassText
         {
             get { return passText; }
             set { this.RaiseAndSetIfChanged(ref passText, value); }
         }
 
-        private string errText;
         public string ErrText
         {
             get { return errText; }
             set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
-        private string errNullText;
         public string ErrNullText
         {
             get { return errNullText; }
             set { this.RaiseAndSetIfChanged(ref errNullText, value); }
         }
 
-        private string errNulText;
         public string ErrNulText
         {
             get { return errNulText; }
@@ -58,8 +63,6 @@ namespace LifeDesignerOnAvalonia.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> NavigateToRegisterCommand { get; }
-
-        public ICommand CICommand { get; }
         
         public ReactiveCommand<Unit, Unit> LoginCommand { get; }
 
@@ -79,9 +82,9 @@ namespace LifeDesignerOnAvalonia.ViewModels
                     var CurrentUser = context.userLogins.FirstOrDefault(u => u.Email == EmailText && u.Password == MD5Hash.hashPassword(PassText));
                     if (CurrentUser != null)
                     {
-                        ItemsCollection.IdUser = CurrentUser.Id;
-                        CICommand.Execute(null);
-                        HostScreen.Router.Navigate.Execute(new UserPanelViewModel(HostScreen));
+                        _service.setUserId(CurrentUser.Id);
+                        _service.initializeCollection();
+                        HostScreen.Router.Navigate.Execute(new UserPanelViewModel(HostScreen, _service));
                     }
                     else
                     {
@@ -95,7 +98,7 @@ namespace LifeDesignerOnAvalonia.ViewModels
 
         void NavigateToRegister()
         {
-            HostScreen.Router.Navigate.Execute(new RegisterViewModel(HostScreen));
+            HostScreen.Router.Navigate.Execute(new RegisterViewModel(HostScreen, _service));
         }
 
 

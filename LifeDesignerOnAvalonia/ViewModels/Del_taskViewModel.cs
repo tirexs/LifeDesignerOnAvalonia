@@ -1,4 +1,5 @@
 ﻿using LifeDesignerOnAvalonia.Models;
+using LifeDesignerOnAvalonia.Services;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using System.Linq;
@@ -9,28 +10,34 @@ namespace LifeDesignerOnAvalonia.ViewModels
     public class Del_taskViewModel: ViewModelBase
     {
 
+        #region private
+        private ItemsCollectionService _service;
+        private string text;
+        private string errText;
+        #endregion
 
-        public Del_taskViewModel() 
+        public Del_taskViewModel(ItemsCollectionService service) 
         {
+            _service = service;
             DelTaskCommand = ReactiveCommand.Create(DelTask);
             CloseWindowCommand = ReactiveCommand.Create(CloseWindow);
         }
 
-        private string text;
+        public ReactiveCommand<Unit, Unit> DelTaskCommand { get; }
+        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; }
+
         public string Text
         {
             get { return text; }
             set { this.RaiseAndSetIfChanged(ref text, value); }
         }
 
-        private string errText;
         public string ErrText
         {
             get { return errText; }
             set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
-        public ReactiveCommand<Unit, Unit> DelTaskCommand { get; }
 
         private void DelTask()
         {
@@ -40,27 +47,13 @@ namespace LifeDesignerOnAvalonia.ViewModels
             }
             else
             {
-                using (var context = new DataBaseContext())
-                {
-                    var data = context.datas.Where(c => c.Text == Text).ExecuteDelete();
-
-                    var item = ItemsCollection.Items.FirstOrDefault(i => i.Header == ItemsCollection.SelectedItem.Header);
-                    if (item != null)
-                    {
-                        item.Content.Remove(Text);
-                    }
-                    //CloseWindowCommand.Execute();
-                }
+                _service.RemoveTask(Text);
             }
         }
-
-        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; }
 
         private void CloseWindow()
         {
           //  Application.Current.Windows.OfType<Del_task>().FirstOrDefault()?.Close();
         }
-
-
     }
 }

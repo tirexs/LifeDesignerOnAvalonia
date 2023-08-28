@@ -1,16 +1,33 @@
 ﻿using LifeDesignerOnAvalonia.Models;
+using LifeDesignerOnAvalonia.Services;
 using LifeDesignerOnAvalonia.Views;
 using ReactiveUI;
+using System.Collections.ObjectModel;
 using System.Reactive;
 
 namespace LifeDesignerOnAvalonia.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        #region Private
+        private Item selectedCategory;
+        private int selectedIndexAudioItem;
+        private ItemsCollectionService _service;
+        #endregion
 
+        public ObservableCollection<Item> _ItemsCollection { get; set; }
+        public ReactiveCommand<Unit, Unit> AccountCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddCategoryCommand { get; }
+        public ReactiveCommand<Unit, Unit> RemoveCategoryCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddTaskCommand { get; }
+        public ReactiveCommand<Unit, Unit> DelTaskCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddAudioCommand { get; }
+        public ReactiveCommand<Unit, Unit> PlayAudioCommand { get; }
 
-        public MainWindowViewModel() 
+        public MainWindowViewModel(ItemsCollectionService service) 
         {
+            _service = service;
+            _ItemsCollection = _service.GetCollection();
             RemoveCategoryCommand = ReactiveCommand.Create(RemoveCategory);
             AddCategoryCommand = ReactiveCommand.Create(AddCategory);
             AddTaskCommand = ReactiveCommand.Create(AddTask);
@@ -21,18 +38,19 @@ namespace LifeDesignerOnAvalonia.ViewModels
         }
 
         
-        private Item selectedItems;
-        public Item SelectedItems
+        
+        public Item SelectedCategory
         {
-            get { return selectedItems; }
+            get { return selectedCategory; }
             set
             {
-                this.RaiseAndSetIfChanged(ref selectedItems, value);
+                this.RaiseAndSetIfChanged(ref selectedCategory, value);
+                _service.SetSelectedCategory(value);
             }
         }
 
         
-        private int selectedIndexAudioItem;
+        
         public int SelectedIndexAudioItem
         {
             get { return selectedIndexAudioItem; }
@@ -42,63 +60,57 @@ namespace LifeDesignerOnAvalonia.ViewModels
             }
         }
 
-        public ReactiveCommand<Unit, Unit> AccountCommand { get; }
+        
 
         private void Account()
         {
-            Account account = new Account();
+            Account account = new Account() { DataContext = new AccountViewModel(_service) };
             account.Show();
         }
 
-        public ReactiveCommand<Unit, Unit> AddCategoryCommand { get; }
 
         private void AddCategory()
         {
-            Add_category AC = new Add_category();
+            Add_category AC = new Add_category() { DataContext = new Add_categoryViewModel(_service) };
             AC.Show();  
         }
 
 
-        public ReactiveCommand<Unit, Unit> RemoveCategoryCommand { get; }
 
         private void RemoveCategory()
         {
-            Del_category DC = new Del_category();
+            Del_category DC = new Del_category() { DataContext = new Del_categoryViewModel(_service) };
             DC.Show();
         }
 
-        public ReactiveCommand<Unit, Unit> AddTaskCommand { get; }
 
         private void AddTask()
         {
-            ItemsCollection.SelectedItem = SelectedItems;
-            Add_task AT = new Add_task();
+            
+            Add_task AT = new Add_task() { DataContext = new Add_taskViewModel(_service) };
             AT.Show();
         }
 
-        public ReactiveCommand<Unit, Unit> DelTaskCommand { get; }
 
         private void DelTask()
         {
-            ItemsCollection.SelectedItem = SelectedItems;
-            Del_task DT = new Del_task();
+            
+            Del_task DT = new Del_task() { DataContext = new Del_taskViewModel(_service) };
             DT.Show();
         }
 
-        public ReactiveCommand<Unit, Unit> AddAudioCommand { get; }
 
         private void AddAudio()
         {
-            ItemsCollection.SelectedItem = SelectedItems;
-            Add_audio AA = new Add_audio();
+            
+            Add_audio AA = new Add_audio() { DataContext = new Add_audioViewModel(_service) };
             AA.Show();
         }
 
-        public ReactiveCommand<Unit, Unit> PlayAudioCommand { get; }
 
         private void PlayAudio()
         {
-            SelectedIndexAudioItem = ItemsCollection.SelectedIndexAudioItem;
+            //SelectedIndexAudioItem = ItemsCollection.SelectedIndexAudioItem;
         }
 
 

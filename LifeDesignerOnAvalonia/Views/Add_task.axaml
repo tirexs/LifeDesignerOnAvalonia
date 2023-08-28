@@ -8,9 +8,7 @@
 		x:DataType="vm:Add_taskViewModel"
         Title="Add_task" Height="295" Width="392">
 
-	<Window.DataContext>
-		<vm:Add_taskViewModel/>
-	</Window.DataContext>
+	
 
 	<Grid>
 		<TextBox x:Name="TextBox" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Margin="100,100,0,0"/>

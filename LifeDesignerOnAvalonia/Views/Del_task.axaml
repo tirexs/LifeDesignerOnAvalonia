@@ -8,9 +8,7 @@
 		x:DataType="vm:Del_taskViewModel"
         Title="Del_task" Height="277" Width="372">
 
-	<Window.DataContext>
-		<vm:Del_taskViewModel/>
-	</Window.DataContext>
+	
 
 	<Grid>
 		<TextBox x:Name="TextBox" Text="{Binding Text}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="188"/>

@@ -8,9 +8,7 @@
 		x:DataType="vm:Del_categoryViewModel"
         Title="Del_category" Height="198" Width="282">
 
-    <Window.DataContext>
-        <vm:Del_categoryViewModel/>
-    </Window.DataContext>
+    
 
     <Grid>
         <Button Command="{Binding RemoveCategoryCommand}" Content="удалить" HorizontalAlignment="Left" Margin="54,136,0,0" VerticalAlignment="Top"/>

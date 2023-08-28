@@ -1,4 +1,5 @@
 ﻿using LifeDesignerOnAvalonia.Models;
+using LifeDesignerOnAvalonia.Services;
 using ReactiveUI;
 using System.Linq;
 using System.Reactive;
@@ -8,9 +9,17 @@ namespace LifeDesignerOnAvalonia.ViewModels
     public class UserPanelViewModel : ViewModelBase, IRoutableViewModel
     {
 
-        public UserPanelViewModel(IScreen screen)
+        #region private
+        private ItemsCollectionService _service;
+        private string emailText;
+        private string loginText;
+        private string idText;
+        #endregion
+
+        public UserPanelViewModel(IScreen screen, ItemsCollectionService service)
         {
             HostScreen = screen;
+            _service = service;
             LogOutCommand = ReactiveCommand.Create(LogOut);
             Data();
         }
@@ -18,21 +27,18 @@ namespace LifeDesignerOnAvalonia.ViewModels
         public string UrlPathSegment => "UserPanel";
         public IScreen HostScreen { get; }
 
-        private string emailText;
         public string EmailText
         {
             get { return emailText; }
             set { this.RaiseAndSetIfChanged(ref emailText, value); }
         }
 
-        private string loginText;
         public string LoginText
         {
             get { return loginText; }
             set { this.RaiseAndSetIfChanged(ref loginText, value); }
         }
 
-        private string idText;
         public string IdText
         {
             get { return idText; }
@@ -44,16 +50,16 @@ namespace LifeDesignerOnAvalonia.ViewModels
 
         private void LogOut()
         {
-            ItemsCollection.IdUser = 0;
-            ItemsCollection.Items.Clear();
-            HostScreen.Router.Navigate.Execute(new LoginViewModel(HostScreen));
+            _service.setUserId(0);
+            _service.ClearCollection();
+            HostScreen.Router.Navigate.Execute(new LoginViewModel(HostScreen, _service));
         }
 
         void Data()
         {
             using (var Context = new DataBaseContext())
             {
-                var CurrentUser = Context.userLogins.FirstOrDefault(i => i.Id == ItemsCollection.IdUser);
+                var CurrentUser = Context.userLogins.FirstOrDefault(i => i.Id == _service.GetUserId());
                 if(CurrentUser != null)
                 {
                     EmailText = CurrentUser.Email;

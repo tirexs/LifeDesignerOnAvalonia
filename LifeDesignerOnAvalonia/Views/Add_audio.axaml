@@ -8,9 +8,6 @@
 		x:DataType="vm:Add_audioViewModel"
         Title="Add_audio" Height="277" Width="372">
 
-	<Window.DataContext>
-		<vm:Add_audioViewModel/>
-	</Window.DataContext>
 
 	<Grid>
 		

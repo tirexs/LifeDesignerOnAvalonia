@@ -1,30 +1,37 @@
-﻿using LifeDesignerOnAvalonia.Models;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System.Reactive;
 using NAudio.Wave;
 using System.IO;
 using System.Media;
-using System.Linq;
 using System;
+using LifeDesignerOnAvalonia.Services;
 
 namespace LifeDesignerOnAvalonia.ViewModels
 {
     public class Add_audioViewModel : ViewModelBase
     {
+
+        #region private
+        private ItemsCollectionService _service;
         private WaveInEvent waveIn;
         private MemoryStream outputStream;
+        private string errText;
+        #endregion
+
         static string audioFile = "D:\\programming\\C#\\LifeDesignerOnAvalonia\\LifeDesignerOnAvalonia\\test.wav";
         readonly SoundPlayer soundPlayer = new SoundPlayer(audioFile);
+        public ReactiveCommand<Unit, Unit> StartRecordingCommand { get; }
+        public ReactiveCommand<Unit, Unit> StopRecordingCommand { get; }
 
-        private string errText;
         public string ErrText
         {
             get { return errText; }
             set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
 
-        public Add_audioViewModel()
+        public Add_audioViewModel(ItemsCollectionService service)
         {
+            _service = service;
             StartRecordingCommand = ReactiveCommand.Create(StartRecording);
             StopRecordingCommand = ReactiveCommand.Create(StopRecording);
             waveIn = new WaveInEvent();
@@ -39,54 +46,26 @@ namespace LifeDesignerOnAvalonia.ViewModels
             outputStream.Write(e.Buffer, 0, e.BytesRecorded);
         }
 
-
-        public ReactiveCommand<Unit, Unit> StartRecordingCommand { get; }
-
         private void StartRecording()
         {
             waveIn.StartRecording();
         }
         
-        
-        
-        
-        
-        public ReactiveCommand<Unit, Unit> StopRecordingCommand { get; }
-        
         private void StopRecording()
         {
             waveIn.StopRecording();
             waveIn.Dispose();
-            byte[] audioBytes = outputStream.ToArray();
+            byte[] AudioBytes = outputStream.ToArray();
             outputStream.Dispose();
-            var NameRecord = DateTime.Now.ToString("yyyy-MM-dd");
+            string NameRecord = DateTime.Now.ToString("yyyy-MM-dd");
 
-            if (audioBytes == null)
+            if (AudioBytes == null)
             {
                 ErrText = "попробуйте ещё раз";
             }
             else
             {
-                using (var context = new DataBaseContext())
-                {
-                    var id = context.Categorys.Where(n => n.Name == ItemsCollection.SelectedItem.Header).Select(n => n.Id).FirstOrDefault();
-                    var audioData = new AudioData()
-                    {
-                        Name = NameRecord,
-                        IdCategory = id,
-                        IdUser = ItemsCollection.IdUser,
-                        Audio = audioBytes
-                    };
-
-                    context.audioData.Add(audioData);
-                    context.SaveChanges();
-
-                    var item = ItemsCollection.Items.FirstOrDefault(i => i.Header == ItemsCollection.SelectedItem.Header);
-                    if (item != null)
-                    {
-                        item.AudioName.Add(NameRecord);
-                    }
-                }
+                _service.AddAudio(NameRecord, AudioBytes);
             }
         }
 
@@ -102,8 +81,5 @@ namespace LifeDesignerOnAvalonia.ViewModels
         //        File.WriteAllBytes(filePath, memoryStream.ToArray());
         //    }
         //}
-
-
-
     }
 }

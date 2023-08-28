@@ -1,4 +1,5 @@
 ﻿using LifeDesignerOnAvalonia.Models;
+using LifeDesignerOnAvalonia.Services;
 using ReactiveUI;
 using System.Linq;
 using System.Reactive;
@@ -8,30 +9,33 @@ namespace LifeDesignerOnAvalonia.ViewModels
     public class Add_taskViewModel : ViewModelBase
     {
 
+        #region private
+        private ItemsCollectionService _service;
+        private string text;
+        private string errText;
+        #endregion
 
-        public Add_taskViewModel()
+        public Add_taskViewModel(ItemsCollectionService service)
         {
+            _service = service;
             AddTaskCommand = ReactiveCommand.Create(AddTask);
             CloseWindowCommand = ReactiveCommand.Create(CloseWindow);
         }
 
-        
+        public ReactiveCommand<Unit, Unit> AddTaskCommand { get; }
+        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; }
 
-        private string text;
         public string Text
         {
             get { return text; }
             set { this.RaiseAndSetIfChanged(ref text, value); }
         }
-
-        private string errText;
+                
         public string ErrText
         {
             get { return errText; }
             set { this.RaiseAndSetIfChanged(ref errText, value); }
         }
-
-        public ReactiveCommand<Unit, Unit> AddTaskCommand { get; }
 
         private void AddTask()
         {
@@ -41,40 +45,13 @@ namespace LifeDesignerOnAvalonia.ViewModels
             }
             else
             { 
-                using (var context = new DataBaseContext())
-                {
-                    var id = context.Categorys.Where(n => n.Name == ItemsCollection.SelectedItem.Header).Select(n => n.Id).FirstOrDefault();
-                    var data = new Data()
-                    {
-                        Text = Text,
-                        IdCategory = id,
-                        IdUser = ItemsCollection.IdUser
-                    };
-                    context.datas.Add(data);
-                    context.SaveChanges();
-
-                    var item = ItemsCollection.Items.FirstOrDefault(i => i.Header == ItemsCollection.SelectedItem.Header);
-                    if (item != null)
-                    {
-                        item.Content.Add(Text);
-                    }
-                    CloseWindowCommand.Execute();
-                }
+                _service.AddTask(Text);
             }
         }
-
-        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; }
 
         private void CloseWindow()
         {
             //Application.Current.Windows.OfType<Add_category>().FirstOrDefault()?.Close();
         }
-
-
-
-
-
-
-
     }
 }

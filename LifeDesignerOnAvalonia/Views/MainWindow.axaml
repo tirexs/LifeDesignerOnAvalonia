@@ -11,13 +11,7 @@
         Title="MainWindow" Height="1024" Width="1600"
 		x:DataType="vm:MainWindowViewModel">
 
-	<Window.DataContext>
-		<vm:MainWindowViewModel/>
-	</Window.DataContext>
-
-
-
-
+	
 	<Grid>
 		<Border x:Name="bu" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="57" VerticalAlignment="Top" Width="1600">
 			<Grid Width="1600" Height="57" Margin="-1,-1,-1,-1">
@@ -36,12 +30,12 @@
 
 			<Grid Width="1600" Height="951" RenderTransformOrigin="0.465,0.504" Margin="-1,-1,-1,-1">
 
-				<TabControl TabStripPlacement="Left" ItemsSource="{Binding Source={x:Static vx:ItemsCollection.Items}}" SelectedItem="{Binding SelectedItems, Mode=TwoWay}" >
+				<TabControl TabStripPlacement="Left" ItemsSource="{Binding _ItemsCollection}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" >
 
 					<TabControl.ItemTemplate>
 						<!-- this is the header template-->
 						<DataTemplate x:DataType="vx:Item">
-							<TextBlock Text="{Binding Header}">
+							<TextBlock Text="{Binding Category}">
 								<!--<TextBlock.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Удалить" Command="{Binding MenuItem_DelCat}"/>
@@ -55,13 +49,13 @@
 						<DataTemplate x:DataType="vx:Item">
 							<TabControl>
 								<TabItem Header="Текстовые заметки">
-									<ListBox ItemsSource="{Binding Content}"/>
+									<ListBox ItemsSource="{Binding Tasks}"/>
 									<!-- Ваше содержимое для второго TabControl для поля Content -->
 								</TabItem>
 								<TabItem Header="Голосовые заметки">
 									<StackPanel Orientation="Horizontal">
-										<Button Content="Play" Command="{Binding PlayAudioCommand}"/>
-										<ListBox ItemsSource="{Binding AudioName}" SelectedIndex="{Binding Source={x:Static vx:ItemsCollection.SelectedIndexAudioItem}, Mode=TwoWay}"/>
+										<Button Content="Play" Command="{Binding PlayAudioCommand, DataType={x:Type vm:MainWindowViewModel}}"/>
+										<ListBox ItemsSource="{Binding AudioNames}" SelectedIndex="{Binding SelectedIndexAudioItem, Mode=TwoWay, DataType={x:Type vm:MainWindowViewModel}}"/>
 									</StackPanel>
 									<!-- Ваше содержимое для второго TabControl для поля AudioName -->
 								</TabItem>
